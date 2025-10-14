@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\title{Wer überlebt den Untergang? \\ Erste Analyse des Titanic-Datensatzes}
+\author{Max Mustermann}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{1. Einleitung oder Datensatzbeschreibung}
+
+Der Titanic-Datensatz enthält Informationen zu Passagieren des berühmten Schiffsunglücks von 1912. Ziel dieser Analyse ist es, erste Vorhersagen zur Überlebenswahrscheinlichkeit eines Passagiers zu treffen – basierend auf Merkmalen wie Alter, Geschlecht oder Ticketklasse. 
+
+Die Zielvariable \texttt{survived} ist binär kodiert: \texttt{0} für nicht überlebt, \texttt{1} für überlebt.
+
+\section*{2. Erste explorative Analyse}
+
+Eine erste Analyse zeigt deutliche Unterschiede in den Überlebenschancen zwischen Männern und Frauen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/survival_by_sex.png}
+    \caption{Überlebensrate nach Geschlecht}
+\end{figure}
+
+Auch die Ticketklasse (\texttt{pclass}) scheint mit dem Überleben zusammenzuhängen: Je höher die Klasse (1. Klasse), desto höher die Überlebenswahrscheinlichkeit.
+
+\section*{3. Erstes Modell: Logistische Regression}
+
+Für ein erstes Klassifikationsmodell wurde eine logistische Regression trainiert, basierend auf den Merkmalen \texttt{age}, \texttt{fare} und \texttt{sex}. Fehlende Alterswerte wurden durch den Median ersetzt.
+
+Das Modell wurde auf einem Testdatensatz evaluiert. Die folgende Konfusionsmatrix zeigt die Vorhersagequalität:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/confusion_matrix.png}
+    \caption{Konfusionsmatrix: Logistische Regression}
+\end{figure}
+
+Das Modell erreicht eine Genauigkeit (Accuracy) von rund 74{,}8\,\%. Damit kann es den Überlebensstatus der Passagiere bereits in vielen Fällen korrekt vorhersagen, zeigt aber noch deutliche Verbesserungspotenziale. 
+Auffällig ist, dass das Modell Nicht‑Überlebende häufiger richtig klassifiziert als Überlebende.
+
+\section*{4. Fazit und nächste Schritte}
+
+Die ersten Ergebnisse sind vielversprechend: Schon ein einfaches Modell mit wenigen Features liefert plausible Vorhersagen. Als nächster Schritt sollen:
+
+\begin{itemize}
+    \item weitere Merkmale berücksichtigt werden (\texttt{embarked}, \texttt{family size}),
+    \item Entscheidungsbäume mit Feature-Importance ausprobiert werden,
+    \item und ROC/AUC als zusätzliche Metrik eingeführt werden.
+\end{itemize}
+
+Langfristig könnte ein kombiniertes Modell entstehen, das auf mehreren Klassifikatoren basiert (z.\,B. Random Forest).
+
+\end{document}
