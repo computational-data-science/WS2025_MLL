@@ -1,0 +1,76 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----- Sprache, Encoding, Typografie -----
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\linespread{1.06}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% ----- Mathe, Tabellen, Grafiken -----
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\graphicspath{{figs/}}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% ----- Literatur (natbib) -----
+\usepackage[round,authoryear]{natbib}
+%\usepackage[square,numbers]{natbib}
+\bibliographystyle{apalike}
+
+% ----- Querverweise -----
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+
+% ----- Sonstiges -----
+\newcommand{\todo}[1]{\textit{\textbf{[TODO: #1]}}}
+
+% =========================================================
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\Large Technische Hochschule Ingolstadt}\\[6pt]
+  {\large Studiengang: Data Science in Technik und Wirtschaft}\\[28pt]
+
+  {\huge \textbf{Wer überlebt den Untergang?}}\\[10pt]
+  {\LARGE \textbf{Erste Analyse des Titanic-Datensatzes}}\\[32pt]
+
+  {\large Seminararbeit Machine Learning Lab}\\[24pt]
+
+  \begin{tabular}{ll}
+    Autor: & Max Mustermann \\
+    Matrikelnummer: & 12345678 \\
+    Abgabedatum: & 21.10.2025\\[32pt]
+  \end{tabular}
+
+  % ----- Abstract -----
+  \begin{minipage}{0.85\textwidth}
+    \textbf{Abstract} \\[4pt]
+    Die vorliegende Arbeit analysiert den historischen Titanic-Datensatz, um mithilfe von Klassifikationsverfahren vorherzusagen, welche Passagiere das Unglück überlebten. Auf Basis soziodemografischer und ökonomischer Merkmale wurden drei Modelle – logistische Regression, Entscheidungsbaum und Random Forest – verglichen. Der Random Forest erzielte mit einer Genauigkeit von rund 79 \% die beste Vorhersageleistung, während die logistische Regression durch ihre einfache Interpretierbarkeit überzeugte. Die Ergebnisse zeigen, dass Ensemble-Verfahren komplexe Muster besser erfassen, jedoch an Transparenz verlieren. Damit verdeutlicht die Analyse exemplarisch, wie Data-Science-Methoden genutzt werden können, um reale Entscheidungsprozesse datenbasiert zu verstehen und zu bewerten.
+  \end{minipage}
+
+\end{titlepage}
+
+% =========================================================
+\section{Einleitung}
+
+Am 15. April 1912 sank die RMS Titanic auf ihrer Jungfernfahrt nach einer Kollision mit einem Eisberg im Nordatlantik.
+Mehr als 1500 der rund 2200 Menschen an Bord kamen dabei ums Leben, womit das Unglück zu den größten zivilem Schiffs­katastrophen des 20. Jahrhunderts zählt \citep{BBC2024Titanic, BritannicaTitanic}. Der Untergang der Titanic steht bis heute sinnbildlich für das Spannungsfeld zwischen technologischem Fortschritt, sozialer Ungleichheit und menschlicher Fehlbarkeit.
+
+Der erhaltene Passagierdatensatz bietet eine seltene Möglichkeit, historische Ereignisse mit modernen Methoden der Datenanalyse zu untersuchen.
+Die in vielen Data-Science-Kursen genutzte Version des Datensatzes basiert auf öffentlich zugänglichen Listen der Passagiere und Crew­mitglieder und wird von der Plattform Kaggle bereitgestellt \citep{KaggleTitanic}. Er enthält Merkmale wie Alter, Geschlecht, Passagierklasse und Ticketpreis und erlaubt damit die Untersuchung soziodemografischer und ökonomischer Einflussfaktoren auf das Überleben.
+
+Diese Arbeit untersucht, welche dieser Merkmale die Überlebenswahrscheinlichkeit am besten vorhersagen. Dazu werden drei Klassifikationsverfahren – logistische Regression, Entscheidungsbaum und Random Forest – verglichen. Neben der Vorhersagegenauigkeit steht auch die Interpretierbarkeit der Modelle im Mittelpunkt, um zu verstehen,
+wie Data-Science-Methoden genutzt werden können, um reale gesellschaftliche Fragestellungen datenbasiert zu beleuchten.
+
+% =========================================================
+\section{Datenanalyse und Vorbereitung}
+
+% =========================================================
+\bibliography{refs}
+
+\end{document}

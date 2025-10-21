@@ -1,0 +1,124 @@
+\documentclass[12pt,a4paper]{article}
+
+% ----- Sprache, Encoding, Typografie -----
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\linespread{1.06}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% ----- Mathe, Tabellen, Grafiken -----
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\graphicspath{{figs/}}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% ----- Literatur (natbib) -----
+\usepackage[round,authoryear]{natbib}
+% \usepackage[square,comma,numbers]{natbib} % <-- Alternative: IEEE-Style im Text
+\bibliographystyle{apalike}                 % oder: ieeetr (mit Zeile oben)
+
+% ----- Querverweise -----
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,capitalise]{cleveref}
+
+% ----- Sonstiges -----
+\newcommand{\todo}[1]{\textit{\textbf{[TODO: #1]}}}
+
+% =========================================================
+\begin{document}
+
+% ----- Titelseite (gleiches Layout wie Lab) -----
+\begin{titlepage}
+  \centering
+  {\Large Technische Hochschule Ingolstadt}\\[6pt]
+  {\large Studiengang: Data Science in Technik und Wirtschaft}\\[28pt]
+
+  {\huge \textbf{Logistische Regression und Elastic-Net-Regularisierung}}\\[10pt]
+  {\LARGE \textbf{Ein Vergleich mit Praxisbezug}}\\[32pt]
+
+  {\large Seminararbeit Applied Machine Learning}\\[24pt]
+
+  \begin{tabular}{ll}
+    Autor: & Max Mustermann \\
+    Matrikelnummer: & 12345678 \\
+    Abgabedatum: & 21.10.2025\\[32pt]
+  \end{tabular}
+
+  % ----- Abstract (wie bei der Lab-Vorlage auf der Titelseite) -----
+  \begin{minipage}{0.85\textwidth}
+    \textbf{Abstract} \\[4pt]
+    Diese Arbeit vergleicht die klassische logistische Regression mit einer erweiterten Variante, die mithilfe von Regularisierung stabiler gegenüber komplexen Datensätzen wird. Am Beispiel des Elastic-Net-Ansatzes wird gezeigt, wie sich Modelle anpassen lassen, um sowohl Überanpassung zu vermeiden als auch wichtige Einflussgrößen gezielt zu berücksichtigen. Solche Verfahren spielen in vielen praktischen Anwendungen – etwa bei der Kreditrisikobewertung, der medizinischen Diagnostik oder der Qualitätsüberwachung in der Produktion – eine zentrale Rolle, da sie präzise und gleichzeitig verlässliche Vorhersagen ermöglichen. Der Vergleich verdeutlicht, dass Regularisierung ein wichtiges Werkzeug ist, um statistische Modelle an reale Datenbedingungen anzupassen und so datenbasierte Entscheidungen robuster und nachvollziehbarer zu machen.
+  \end{minipage}
+
+\end{titlepage}
+
+% =========================================================
+\section{Einleitung}
+Kurzmotivationen (Anwendungs- und methodischer Kontext), Fragestellung,
+Beitrag der Arbeit, Aufbau. Beispiel: Warum Regularisierung bei
+hochdimensionalen/korrelierten Daten zentral ist \citep{Tibshirani1996Lasso, Zou2005ElasticNet}.
+
+\section{Theoretische Grundlagen}
+Gemeinsamer Rahmen für binäre Klassifikation:
+Daten $(x_i,y_i)$, $y_i\in\{0,1\}$, Sigmoid $\sigma(z)=1/(1+e^{-z})$,
+negative Log-Likelihood als Verlust. Definition von Regularisierung,
+Bias–Varianz-Trade-off, Multikollinearität (kurz, mit Referenzen).
+
+\section{Logistische Regression}
+\subsection{Modell und Verlustfunktion}
+\[
+  \min_{\beta}\; \mathcal{L}(\beta)
+  = -\sum_{i=1}^n \big[ y_i \log \hat p_i + (1-y_i)\log(1-\hat p_i)\big],\quad
+  \hat p_i=\sigma(x_i^\top\beta).
+\]
+\subsection{Optimierung und Eigenschaften}
+Gradientenverfahren / Newton-Raphson; Konvexität; Interpretierbarkeit der
+Koeffizienten (Log-Odds), Sensitivität bei Multikollinearität
+\citep{Hosmer2000Logistic}.
+
+\section{Elastic-Net-regularisierte logistische Regression}
+\subsection{Penalized Objective}
+\[
+  \min_{\beta}\; \mathcal{L}(\beta)
+  + \lambda\Big(\alpha \lVert \beta \rVert_1 + (1-\alpha)\tfrac{1}{2}\lVert \beta \rVert_2^2\Big),
+\]
+mit $\lambda>0$ (Stärke) und $\alpha\in[0,1]$ (Mix zwischen Lasso und Ridge).
+\subsection{Optimierung und Effekte}
+Koordinatenabstieg, Konvergenz in der Praxis, Pfad-Methoden. Effekte:
+Sparsity (L1), Schrumpfung/Glättung (L2), Gruppenverhalten bei
+korrelierten Prädiktoren \citep{Zou2005ElasticNet}.
+\subsection{Modellauswahl}
+CV-basierte Wahl von $\lambda$ und $\alpha$; Reproduzierbarkeit, Skalenfragen
+(Standardisierung).
+
+\section{Vergleich und Diskussion}
+
+\subsection{Gemeinsamkeiten und Unterschiede}
+Theoretische Grundlagen; Formulierung, Konvexität, Interpretierbarkeit,
+Rechenaufwand, Stabilität.
+
+\subsection{Bias–Varianz–Trade-off}
+Einfluss der Regularisierung auf Modellkomplexität; 
+Overfitting vs. Underfitting; Stabilität bei korrelierten Merkmalen.
+
+\subsection{Anwendungsfelder in der Praxis}
+Beispiele aus realen Szenarien: Kreditrisiko, Medizin, Industrie, 
+Social Media; Nutzen der Regularisierung für robuste Vorhersagen.
+
+\subsection{Grenzen und Herausforderungen}
+Abhängigkeit von Hyperparametern ($\lambda$, $\alpha$);
+Verlust an Interpretierbarkeit; Notwendigkeit domänenspezifischer Validierung.
+
+
+\section{Fazit}
+Knappe Zusammenfassung der theoretischen Erkenntnisse und
+konkrete Empfehlungen (z. B. Elastic Net bei korrelierten Merkmalen
+und begrenztem $n$, klassische Logit wenn maximale Interpretierbarkeit
+gefragt ist und Multikollinearität gering).
+
+\bibliography{bib}
+\end{document}
